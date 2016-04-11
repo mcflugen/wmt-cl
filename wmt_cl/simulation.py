@@ -10,8 +10,6 @@ import getpass
 import yaml
 import requests
 
-from model import get_model
-
 
 from .constants import PREFIX, HOST
 
