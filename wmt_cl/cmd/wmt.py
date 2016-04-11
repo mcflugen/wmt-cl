@@ -3,6 +3,7 @@ import argparse
 
 from .wmt_model import add_model_parser
 from .wmt_simulation import add_simulation_parser
+from .wmt_test import add_test_parser
 from ..constants import PREFIX
 
 
@@ -17,6 +18,7 @@ def main():
                                        help='additional help')
     add_model_parser(subparsers)
     add_simulation_parser(subparsers)
+    add_test_parser(subparsers)
 
     args = parser.parse_args()
 
