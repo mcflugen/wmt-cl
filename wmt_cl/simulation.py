@@ -70,6 +70,18 @@ def launch(sim_id, username=None, password=None, host=None, prefix=None):
     return resp.text
 
 
+def status(sim_id, prefix=None):
+    prefix = prefix or PREFIX
+    url = os.path.join(prefix, 'run', sim_id)
+
+    resp = requests.get(url)
+    if resp.status_code != 200:
+        raise RuntimeError(
+            '{code}: unexpected response code'.format(code=resp.status_code))
+
+    return json.loads(resp.text)['status']
+
+
 def main():
     parser = argparse.ArgumentParser('Save a simulation.')
     parser.add_argument('id', type=int, help='Model identifier')

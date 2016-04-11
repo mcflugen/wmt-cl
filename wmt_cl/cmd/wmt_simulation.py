@@ -38,6 +38,12 @@ def stage(args):
     stage(args.id)
 
 
+def status(args):
+    from ..simulation import status
+
+    print('{status}'.format(status=status(args.id)))
+
+
 def add_simulation_parser(parser):
     simulation_parser = parser.add_parser('simulation', help='WMT simulations')
     subparsers = simulation_parser.add_subparsers(
@@ -63,3 +69,8 @@ def add_simulation_parser(parser):
     parser_launch.add_argument('--password', type=str, default=None,
                                help='Password for execution host')
     parser_launch.set_defaults(func=launch)
+
+    parser_status = subparsers.add_parser('status',
+                                          help='Get simulation status')
+    parser_status.add_argument('id', help='Simulation identifier')
+    parser_status.set_defaults(func=status)
