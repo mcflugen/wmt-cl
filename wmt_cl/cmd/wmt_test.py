@@ -17,17 +17,22 @@ def is_wmt_test_file(path):
 
 
 def find_wmt_test_file(path):
+    if os.path.isfile(path):
+        return is_wmt_test_file(item)
+
     for item in os.listdir(path):
-        if is_wmt_test_file(item):
-            return os.path.join(path, item)
+        path_to_file = os.path.join(path, item)
+        if is_wmt_test_file(path_to_file):
+            return path_to_file
     return None
 
 
 def find_wmt_test_data(path):
     data_files = []
     for item in os.listdir(path):
-        if not is_wmt_test_file(item):
-            data_files.append(os.path.join(path, item))
+        path_to_file = os.path.join(path, item)
+        if not is_wmt_test_file(path_to_file):
+            data_files.append(path_to_file)
     return data_files
 
 
@@ -74,7 +79,8 @@ def add_test_parser(parser):
                                             help='additional help')
 
     test_run_parser = subparsers.add_parser('run', help='Run a model test')
-    test_run_parser.add_argument('path', help='Path to test')
+    test_run_parser.add_argument('path',
+                                 help='Path to test file or directory')
     test_run_parser.add_argument('--username', type=str, default=None,
                                  help='Username for execution host')
     test_run_parser.add_argument('--password', type=str, default=None,
