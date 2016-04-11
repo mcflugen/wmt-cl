@@ -3,23 +3,25 @@ from __future__ import print_function
 
 import argparse
 
+import yaml
+
 
 def get(args):
     from ..model import get
 
-    print(yaml.dump(get_model(args.id), default_flow_style=False))
+    print(yaml.dump(get(args.id), default_flow_style=False))
 
 
 def list(args):
     from ..model import list
 
-    print(yaml.dump(list_model(), default_flow_style=False))
+    print(yaml.dump(list(), default_flow_style=False))
 
 
 def save(args):
     from ..model import save
 
-    model_id = save_model(yaml.load(args.file.read()))
+    model_id = save(yaml.load(args.file.read()))
     print('{model_id}'.format(model_id=model_id))
 
 
